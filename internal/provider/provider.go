@@ -5,53 +5,63 @@ package provider
 
 import (
 	"context"
-	"net/http"
+	"os"
 
+	"github.com/aws-gopher/unstructured-sdk-go"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
-	"github.com/hashicorp/terraform-plugin-framework/function"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-// Ensure ScaffoldingProvider satisfies various provider interfaces.
-var _ provider.Provider = &ScaffoldingProvider{}
-var _ provider.ProviderWithFunctions = &ScaffoldingProvider{}
-var _ provider.ProviderWithEphemeralResources = &ScaffoldingProvider{}
+// Ensure Provider satisfies various provider interfaces.
+var _ provider.Provider = &Provider{}
 
-// ScaffoldingProvider defines the provider implementation.
-type ScaffoldingProvider struct {
+// Provider defines the provider implementation.
+type Provider struct {
 	// version is set to the provider version on release, "dev" when the
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
 	version string
+	client  *unstructured.Client
 }
 
-// ScaffoldingProviderModel describes the provider data model.
-type ScaffoldingProviderModel struct {
+// ProviderModel describes the provider data model.
+type ProviderModel struct {
+	APIKey   types.String `tfsdk:"api_key"`
 	Endpoint types.String `tfsdk:"endpoint"`
 }
 
-func (p *ScaffoldingProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "scaffolding"
+func (p *Provider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "unstructured"
 	resp.Version = p.version
 }
 
-func (p *ScaffoldingProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *Provider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
+			"api_key": schema.StringAttribute{
+				Optional:    true,
+				Description: "The API key for the Unstructured API",
+				Sensitive:   true,
+			},
 			"endpoint": schema.StringAttribute{
-				MarkdownDescription: "Example provider attribute",
-				Optional:            true,
+				Optional:    true,
+				Description: "The endpoint of the API",
 			},
 		},
 	}
 }
 
-func (p *ScaffoldingProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	var data ScaffoldingProviderModel
+func (p *Provider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data ProviderModel
+
+	opts := []unstructured.Option{}
+
+	// Check environment variables
+	apiKey := os.Getenv("UNSTRUCTURED_API_KEY")
+	endpoint := os.Getenv("UNSTRUCTURED_API_URL")
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 
@@ -59,42 +69,68 @@ func (p *ScaffoldingProvider) Configure(ctx context.Context, req provider.Config
 		return
 	}
 
-	// Configuration values are now available.
-	// if data.Endpoint.IsNull() { /* ... */ }
+	// Check configuration data, which should take precedence over
+	// environment variable data, if found.
+	if data.APIKey.ValueString() != "" {
+		apiKey = data.APIKey.ValueString()
+	}
 
-	// Example client configuration for data sources and resources
-	client := http.DefaultClient
+	if data.Endpoint.ValueString() != "" {
+		endpoint = data.Endpoint.ValueString()
+	}
+
+	if apiKey == "" {
+		resp.Diagnostics.AddError(
+			"Missing API Key Configuration",
+			"While configuring the provider, the API key was not found in "+
+				"the UNSTRUCTURED_API_KEY environment variable or provider "+
+				"configuration block api_key attribute.",
+		)
+		// Not returning early allows the logic to collect all errors.
+	}
+
+	// Create data/clients and persist to resp.DataSourceData, resp.ResourceData,
+	// and resp.EphemeralResourceData as appropriate.
+
+	if apiKey != "" {
+		opts = append(opts, unstructured.WithKey(apiKey))
+	}
+
+	if endpoint != "" {
+		opts = append(opts, unstructured.WithEndpoint(endpoint))
+	}
+
+	client, err := unstructured.New(opts...)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Failed to create Unstructured client",
+			err.Error(),
+		)
+	}
+	p.client = client
 	resp.DataSourceData = client
 	resp.ResourceData = client
 }
 
-func (p *ScaffoldingProvider) Resources(ctx context.Context) []func() resource.Resource {
+func (p *Provider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewExampleResource,
+		NewWorkflowResource,
+		NewSourceResource,
+		NewDestinationResource,
 	}
 }
 
-func (p *ScaffoldingProvider) EphemeralResources(ctx context.Context) []func() ephemeral.EphemeralResource {
-	return []func() ephemeral.EphemeralResource{
-		NewExampleEphemeralResource,
-	}
-}
-
-func (p *ScaffoldingProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+func (p *Provider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		NewExampleDataSource,
-	}
-}
-
-func (p *ScaffoldingProvider) Functions(ctx context.Context) []func() function.Function {
-	return []func() function.Function{
-		NewExampleFunction,
+		NewWorkflowDataSource,
+		NewSourceDataSource,
+		NewDestinationDataSource,
 	}
 }
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &ScaffoldingProvider{
+		return &Provider{
 			version: version,
 		}
 	}

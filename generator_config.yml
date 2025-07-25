@@ -1,0 +1,102 @@
+provider:
+  name: unstructured
+resources:
+  workflow:
+    create:
+      path: /api/v1/workflows/
+      method: POST
+    read:
+      path: /api/v1/workflows/{workflow_id}
+      method: GET
+    update:
+      path: /api/v1/workflows/{workflow_id}
+      method: PUT
+    delete:
+      path: /api/v1/workflows/{workflow_id}
+      method: DELETE
+    schema:
+      attributes:
+        aliases:
+          workflow_id: id
+  source:
+    create:
+      path: /api/v1/sources/
+      method: POST
+    read:
+      path: /api/v1/sources/{source_id}
+      method: GET
+    update:
+      path: /api/v1/sources/{source_id}
+      method: PUT
+    delete:
+      path: /api/v1/sources/{source_id}
+      method: DELETE
+    schema:
+      attributes:
+        aliases:
+          source_id: id
+      ignores:
+        - type
+        - config
+
+  destination:
+    create:
+      path: /api/v1/destinations/
+      method: POST
+    read:
+      path: /api/v1/destinations/{destination_id}
+      method: GET
+    update:
+      path: /api/v1/destinations/{destination_id}
+      method: PUT
+    delete:
+      path: /api/v1/destinations/{destination_id}
+      method: DELETE
+    schema:
+      attributes:
+        aliases:
+          destination_id: id
+      ignores:
+        - type
+        - config
+
+
+data_sources:
+  workflow:
+    read:
+      path: /api/v1/workflows/{workflow_id}
+      method: GET
+    schema:
+      attributes:
+        aliases:
+          workflow_id: id
+  job:
+    read:
+      path: /api/v1/jobs/{job_id}
+      method: GET
+    schema:
+      attributes:
+        aliases:
+          job_id: id
+  source:
+    read:
+      path: /api/v1/sources/{source_id}
+      method: GET
+    schema:
+      attributes:
+        aliases:
+          source_id: id
+      ignores:
+        - config
+        - type
+  destination:
+    read:
+      path: /api/v1/destinations/{destination_id}
+      method: GET
+    schema:
+      attributes:
+        aliases:
+          destination_id: id
+      ignores:
+        - config
+        - type

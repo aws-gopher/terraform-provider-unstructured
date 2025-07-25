@@ -1,0 +1,837 @@
+{
+	"version": "0.1",
+	"provider": {
+		"name": "unstructured",
+		"schema": {
+			"attributes": [
+				{ "name": "api_key", "string": { "optional_required": "optional", "sensitive": true, "description": "The API key for the Unstructured API" } },
+				{ "name": "endpoint", "string": { "optional_required": "optional", "description": "The endpoint of the API" } }
+			]
+		}
+	},
+	"datasources": [
+		{
+			"name": "destination",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "required" } },
+					{ "name": "name", "string": { "computed_optional_required": "computed" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "updated_at", "string": { "computed_optional_required": "computed" } },
+					
+					{ "name": "astradb", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "collection_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "keyspace", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "api_endpoint", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "azure_ai_search", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "endpoint", "string": { "computed_optional_required": "computed" } },
+						{ "name": "index", "string": { "computed_optional_required": "computed" } },
+						{ "name": "key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "couchbase", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "bucket", "string": { "computed_optional_required": "computed" } },
+						{ "name": "connection_string", "string": { "computed_optional_required": "computed" } },
+						{ "name": "scope", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "databricks_volumes", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "computed" } },
+						{ "name": "schema", "string": { "computed_optional_required": "computed" } },
+						{ "name": "volume", "string": { "computed_optional_required": "computed" } },
+						{ "name": "volume_path", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "databricks_volume_delta_tables", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "server_hostname", "string": { "computed_optional_required": "computed" } },
+						{ "name": "http_path", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "schema", "string": { "computed_optional_required": "computed" } },
+						{ "name": "volume", "string": { "computed_optional_required": "computed" } },
+						{ "name": "volume_path", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "delta_table", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "aws_access_key_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "aws_secret_access_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "aws_region", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_uri", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "elasticsearch", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "hosts", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "index_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "es_api_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "gcs", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "service_account_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "kafka_cloud", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "bootstrap_servers", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "group_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "topic", "string": { "computed_optional_required": "computed" } },
+						{ "name": "kafka_api_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "milvus", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "uri", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "db_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "mongodb", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection", "string": { "computed_optional_required": "computed" } },
+						{ "name": "uri", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "motherduck", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "account", "string": { "computed_optional_required": "computed" } },
+						{ "name": "role", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "schema", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "neo4j", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "uri", "string": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "onedrive", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user_pname", "string": { "computed_optional_required": "computed" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "computed" } },
+						{ "name": "authority_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "computed" } },
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "pinecone", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "index_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "api_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "namespace", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "postgres", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "id_column", "string": { "computed_optional_required": "computed" } },
+						{ "name": "fields", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "redis", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "uri", "string": { "computed_optional_required": "computed" } },
+						{ "name": "database", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "ssl", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "qdrant_cloud", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "api_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "s3", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "anonymous", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "endpoint_url", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "snowflake", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "account", "string": { "computed_optional_required": "computed" } },
+						{ "name": "role", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "schema", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "weaviate_cloud", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "cluster_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "api_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "ibm_watsonx_s3", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "iam_api_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "access_key_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "secret_access_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "iceberg_endpoint", "string": { "computed_optional_required": "computed" } },
+						{ "name": "object_storage_endpoint", "string": { "computed_optional_required": "computed" } },
+						{ "name": "object_storage_region", "string": { "computed_optional_required": "computed" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "computed" } },
+						{ "name": "max_retries_connection", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "namespace", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table", "string": { "computed_optional_required": "computed" } },
+						{ "name": "max_retries", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "computed" } }
+					]}}
+				]
+			}
+		},
+		{
+			"name": "job",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "required" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "job_type", "string": { "computed_optional_required": "computed" } },
+					{ "name": "input_file_ids", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+					{ "name": "output_node_files", "list_nested": { "computed_optional_required": "computed", "nested_object": { "attributes": [
+						{ "name": "file_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "node_id", "string": { "computed_optional_required": "computed" } }
+					]}}},
+					{ "name": "runtime", "string": { "computed_optional_required": "computed" } },
+					{ "name": "status", "string": { "computed_optional_required": "computed" } },
+					{ "name": "workflow_id", "string": { "computed_optional_required": "computed" } },
+					{ "name": "workflow_name", "string": { "computed_optional_required": "computed" } }
+				]
+			}
+		},
+		{
+			"name": "source",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "required" } },
+					{ "name": "name", "string": { "computed_optional_required": "computed" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "updated_at", "string": { "computed_optional_required": "computed" } },
+
+					{ "name": "s3", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "anonymous", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "endpoint_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "postgres", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "id_column", "string": { "computed_optional_required": "computed" } },
+						{ "name": "fields", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "azure", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "account_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "account_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "connection_string", "string": { "computed_optional_required": "computed" } },
+						{ "name": "sas_token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "box", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "box_app_config", "string": { "computed_optional_required": "computed" } },
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "confluence", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "api_token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "cloud", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "extract_images", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "extract_files", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "max_num_of_spaces", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "max_num_of_docs_from_each_space", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "spaces", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "couchbase", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "bucket", "string": { "computed_optional_required": "computed" } },
+						{ "name": "connection_string", "string": { "computed_optional_required": "computed" } },
+						{ "name": "scope", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection_id", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "databricks_volumes", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "computed" } },
+						{ "name": "schema", "string": { "computed_optional_required": "computed" } },
+						{ "name": "volume", "string": { "computed_optional_required": "computed" } },
+						{ "name": "volume_path", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "dropbox", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "elasticsearch", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "hosts", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "index_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "es_api_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "gcs", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "service_account_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "google_drive", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "drive_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "service_account_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "extensions", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "jira", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "cloud", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "projects", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "boards", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "issues", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "status_filters", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "download_attachments", "bool": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "kafka_cloud", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "bootstrap_servers", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "group_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "topic", "string": { "computed_optional_required": "computed" } },
+						{ "name": "kafka_api_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "secret", "string": { "computed_optional_required": "computed" } },
+						{ "name": "num_messages_to_consume", "int64": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "mongodb", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "collection", "string": { "computed_optional_required": "computed" } },
+						{ "name": "uri", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "onedrive", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user_pname", "string": { "computed_optional_required": "computed" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "computed" } },
+						{ "name": "authority_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "path", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "outlook", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "authority_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "computed" } },
+						{ "name": "outlook_folders", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "user_email", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "salesforce", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "username", "string": { "computed_optional_required": "computed" } },
+						{ "name": "consumer_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "private_key", "string": { "computed_optional_required": "computed" } },
+						{ "name": "categories", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "sharepoint", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "site", "string": { "computed_optional_required": "computed" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "computed" } },
+						{ "name": "authority_url", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user_pname", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "computed" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed" } },
+						{ "name": "path", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "snowflake", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "account", "string": { "computed_optional_required": "computed" } },
+						{ "name": "role", "string": { "computed_optional_required": "computed" } },
+						{ "name": "user", "string": { "computed_optional_required": "computed" } },
+						{ "name": "password", "string": { "computed_optional_required": "computed" } },
+						{ "name": "host", "string": { "computed_optional_required": "computed" } },
+						{ "name": "port", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "database", "string": { "computed_optional_required": "computed" } },
+						{ "name": "schema", "string": { "computed_optional_required": "computed" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "computed" } }
+					]}},
+					{ "name": "zendesk", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "subdomain", "string": { "computed_optional_required": "computed" } },
+						{ "name": "email", "string": { "computed_optional_required": "computed" } },
+						{ "name": "api_token", "string": { "computed_optional_required": "computed" } },
+						{ "name": "item_type", "string": { "computed_optional_required": "computed" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "computed" } }
+					]}}
+				]
+			}
+		},
+		{
+			"name": "workflow",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "required" } },
+					{ "name": "name", "string": { "computed_optional_required": "computed" } },
+					{ "name": "status", "string": { "computed_optional_required": "computed" } },
+					{ "name": "workflow_type", "string": { "computed_optional_required": "computed" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "updated_at", "string": { "computed_optional_required": "computed" } },
+					
+					{ "name": "sources", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+					{ "name": "destinations", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+					{ "name": "reprocess_all", "bool": { "computed_optional_required": "computed" } },
+					{ "name": "schedule", "single_nested": { "computed_optional_required": "computed", "attributes": [
+						{ "name": "crontab_entries", "list_nested": { "computed_optional_required": "computed", "nested_object": { "attributes": [
+							{ "name": "cron_expression", "string": { "computed_optional_required": "computed" } }
+						]}}}
+					]}},
+					{ "name": "workflow_nodes", "list_nested": { "computed_optional_required": "computed", "nested_object": { "attributes": [
+						{ "name": "id", "string": { "computed_optional_required": "computed" } },
+						{ "name": "name", "string": { "computed_optional_required": "computed" } },
+						{ "name": "settings", "single_nested": { "computed_optional_required": "computed" } },
+						{ "name": "subtype", "string": { "computed_optional_required": "computed" } },
+						{ "name": "type", "string": { "computed_optional_required": "computed" } }
+					]}}}
+				]
+			}
+		}
+	],
+	"resources": [
+		{
+			"name": "destination",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "computed" } },
+					{ "name": "name", "string": { "computed_optional_required": "required" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "updated_at", "string": { "computed_optional_required": "computed" } },
+
+					{ "name": "astradb", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "collection_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "keyspace", "string": { "computed_optional_required": "optional" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "required" } },
+						{ "name": "api_endpoint", "string": { "computed_optional_required": "required" } },
+						{ "name": "token", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "azure_ai_search", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "endpoint", "string": { "computed_optional_required": "required" } },
+						{ "name": "index", "string": { "computed_optional_required": "required" } },
+						{ "name": "key", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "couchbase", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "bucket", "string": { "computed_optional_required": "required" } },
+						{ "name": "connection_string", "string": { "computed_optional_required": "required" } },
+						{ "name": "scope", "string": { "computed_optional_required": "optional" } },
+						{ "name": "collection", "string": { "computed_optional_required": "optional" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "collection_id", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "databricks_volumes", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "required" } },
+						{ "name": "schema", "string": { "computed_optional_required": "optional" } },
+						{ "name": "volume", "string": { "computed_optional_required": "required" } },
+						{ "name": "volume_path", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_secret", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "databricks_volume_delta_tables", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "server_hostname", "string": { "computed_optional_required": "required" } },
+						{ "name": "http_path", "string": { "computed_optional_required": "required" } },
+						{ "name": "token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "optional" } },
+						{ "name": "client_secret", "string": { "computed_optional_required": "optional" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "required" } },
+						{ "name": "database", "string": { "computed_optional_required": "optional" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "optional" } },
+						{ "name": "schema", "string": { "computed_optional_required": "required" } },
+						{ "name": "volume", "string": { "computed_optional_required": "required" } },
+						{ "name": "volume_path", "string": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "delta_table", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "aws_access_key_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "aws_secret_access_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "aws_region", "string": { "computed_optional_required": "required" } },
+						{ "name": "table_uri", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "elasticsearch", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "hosts", "list": { "computed_optional_required": "required", "element_type": { "string": {} } } },
+						{ "name": "index_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "es_api_key", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "gcs", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "service_account_key", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "kafka_cloud", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "bootstrap_servers", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "group_id", "string": { "computed_optional_required": "optional" } },
+						{ "name": "topic", "string": { "computed_optional_required": "required" } },
+						{ "name": "kafka_api_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "secret", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "milvus", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "uri", "string": { "computed_optional_required": "required" } },
+						{ "name": "user", "string": { "computed_optional_required": "optional" } },
+						{ "name": "token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "password", "string": { "computed_optional_required": "optional" } },
+						{ "name": "db_name", "string": { "computed_optional_required": "optional" } },
+						{ "name": "collection_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "mongodb", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "collection", "string": { "computed_optional_required": "required" } },
+						{ "name": "uri", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "motherduck", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "account", "string": { "computed_optional_required": "required" } },
+						{ "name": "role", "string": { "computed_optional_required": "required" } },
+						{ "name": "user", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "schema", "string": { "computed_optional_required": "optional" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "optional" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "neo4j", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "uri", "string": { "computed_optional_required": "required" } },
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "onedrive", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "client_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "user_pname", "string": { "computed_optional_required": "required" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "required" } },
+						{ "name": "authority_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "required" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "path", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "pinecone", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "index_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "api_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "namespace", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "postgres", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "redis", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "username", "string": { "computed_optional_required": "optional" } },
+						{ "name": "password", "string": { "computed_optional_required": "optional" } },
+						{ "name": "uri", "string": { "computed_optional_required": "optional" } },
+						{ "name": "database", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "ssl", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "qdrant_cloud", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "url", "string": { "computed_optional_required": "required" } },
+						{ "name": "api_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "collection_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "s3", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "anonymous", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "key", "string": { "computed_optional_required": "optional" } },
+						{ "name": "secret", "string": { "computed_optional_required": "optional" } },
+						{ "name": "token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "endpoint_url", "string": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "snowflake", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "account", "string": { "computed_optional_required": "required" } },
+						{ "name": "role", "string": { "computed_optional_required": "required" } },
+						{ "name": "user", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "schema", "string": { "computed_optional_required": "optional" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "weaviate_cloud", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "cluster_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "api_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "collection", "string": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "ibm_watsonx_s3", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "iam_api_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "access_key_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "secret_access_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "iceberg_endpoint", "string": { "computed_optional_required": "required" } },
+						{ "name": "object_storage_endpoint", "string": { "computed_optional_required": "required" } },
+						{ "name": "object_storage_region", "string": { "computed_optional_required": "required" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "required" } },
+						{ "name": "max_retries_connection", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "namespace", "string": { "computed_optional_required": "required" } },
+						{ "name": "table", "string": { "computed_optional_required": "required" } },
+						{ "name": "max_retries", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "record_id_key", "string": { "computed_optional_required": "optional" } }
+					]}}
+				]
+			}
+		},
+		{
+			"name": "source",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "computed" } },
+					{ "name": "name", "string": { "computed_optional_required": "required" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "updated_at", "string": { "computed_optional_required": "computed" } },
+
+					{ "name": "s3", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "anonymous", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "key", "string": { "computed_optional_required": "optional" } },
+						{ "name": "secret", "string": { "computed_optional_required": "optional" } },
+						{ "name": "token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "endpoint_url", "string": { "computed_optional_required": "optional" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "postgres", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "required" } },
+						{ "name": "id_column", "string": { "computed_optional_required": "required" } },
+						{ "name": "fields", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "azure", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "account_name", "string": { "computed_optional_required": "optional" } },
+						{ "name": "account_key", "string": { "computed_optional_required": "optional" } },
+						{ "name": "connection_string", "string": { "computed_optional_required": "optional" } },
+						{ "name": "sas_token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "box", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "box_app_config", "string": { "computed_optional_required": "required" } },
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "confluence", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "url", "string": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "optional" } },
+						{ "name": "api_token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "cloud", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "extract_images", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "extract_files", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "max_num_of_spaces", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "max_num_of_docs_from_each_space", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "spaces", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "couchbase", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "bucket", "string": { "computed_optional_required": "required" } },
+						{ "name": "connection_string", "string": { "computed_optional_required": "required" } },
+						{ "name": "scope", "string": { "computed_optional_required": "optional" } },
+						{ "name": "collection", "string": { "computed_optional_required": "optional" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "collection_id", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "databricks_volumes", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "catalog", "string": { "computed_optional_required": "required" } },
+						{ "name": "schema", "string": { "computed_optional_required": "optional" } },
+						{ "name": "volume", "string": { "computed_optional_required": "required" } },
+						{ "name": "volume_path", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_secret", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "dropbox", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "token", "string": { "computed_optional_required": "required" } },
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "elasticsearch", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "hosts", "list": { "computed_optional_required": "required", "element_type": { "string": {} } } },
+						{ "name": "index_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "es_api_key", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "gcs", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "service_account_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "google_drive", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "drive_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "service_account_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "extensions", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "jira", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "url", "string": { "computed_optional_required": "required" } },
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "optional" } },
+						{ "name": "token", "string": { "computed_optional_required": "optional" } },
+						{ "name": "cloud", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "projects", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } },
+						{ "name": "boards", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } },
+						{ "name": "issues", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } },
+						{ "name": "status_filters", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } },
+						{ "name": "download_attachments", "bool": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "kafka_cloud", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "bootstrap_servers", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "group_id", "string": { "computed_optional_required": "optional" } },
+						{ "name": "topic", "string": { "computed_optional_required": "required" } },
+						{ "name": "kafka_api_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "secret", "string": { "computed_optional_required": "required" } },
+						{ "name": "num_messages_to_consume", "int64": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "mongodb", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "collection", "string": { "computed_optional_required": "required" } },
+						{ "name": "uri", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "onedrive", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "client_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "user_pname", "string": { "computed_optional_required": "required" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "required" } },
+						{ "name": "authority_url", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "required" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "path", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "outlook", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "authority_url", "string": { "computed_optional_required": "optional" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "optional" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "required" } },
+						{ "name": "outlook_folders", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "user_email", "string": { "computed_optional_required": "required" } }
+					]}},
+					{ "name": "salesforce", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "username", "string": { "computed_optional_required": "required" } },
+						{ "name": "consumer_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "private_key", "string": { "computed_optional_required": "required" } },
+						{ "name": "categories", "list": { "computed_optional_required": "required", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "sharepoint", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "site", "string": { "computed_optional_required": "required" } },
+						{ "name": "tenant", "string": { "computed_optional_required": "required" } },
+						{ "name": "authority_url", "string": { "computed_optional_required": "optional" } },
+						{ "name": "user_pname", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_id", "string": { "computed_optional_required": "required" } },
+						{ "name": "client_cred", "string": { "computed_optional_required": "required" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "path", "string": { "computed_optional_required": "optional" } }
+					]}},
+					{ "name": "snowflake", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "account", "string": { "computed_optional_required": "required" } },
+						{ "name": "role", "string": { "computed_optional_required": "required" } },
+						{ "name": "user", "string": { "computed_optional_required": "required" } },
+						{ "name": "password", "string": { "computed_optional_required": "required" } },
+						{ "name": "host", "string": { "computed_optional_required": "required" } },
+						{ "name": "port", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "database", "string": { "computed_optional_required": "required" } },
+						{ "name": "schema", "string": { "computed_optional_required": "optional" } },
+						{ "name": "table_name", "string": { "computed_optional_required": "required" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } },
+						{ "name": "id_column", "string": { "computed_optional_required": "required" } },
+						{ "name": "fields", "list": { "computed_optional_required": "optional", "element_type": { "string": {} } } }
+					]}},
+					{ "name": "zendesk", "single_nested": { "computed_optional_required": "optional", "attributes": [
+						{ "name": "subdomain", "string": { "computed_optional_required": "required" } },
+						{ "name": "email", "string": { "computed_optional_required": "required" } },
+						{ "name": "api_token", "string": { "computed_optional_required": "required" } },
+						{ "name": "item_type", "string": { "computed_optional_required": "optional" } },
+						{ "name": "batch_size", "int64": { "computed_optional_required": "optional" } }
+					]}}
+				]
+			}
+		},
+		{
+			"name": "workflow",
+			"schema": {
+				"attributes": [
+					{ "name": "id", "string": { "computed_optional_required": "computed" } },
+					{ "name": "name", "string": { "computed_optional_required": "required" } },
+					{ "name": "workflow_type", "string": { "computed_optional_required": "required", "validators": [{ "custom": { "imports": [{ "path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator" }], "schema_definition": "stringvalidator.OneOf(\n\"basic\",\n\"advanced\",\n\"platinum\",\n\"custom\",\n)" } }] } },
+					{ "name": "status", "string": { "computed_optional_required": "computed" } },
+					
+					{ "name": "source_id", "string": { "computed_optional_required": "computed_optional" } },
+					{ "name": "sources", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+					{ "name": "destination_id", "string": { "computed_optional_required": "computed_optional" } },
+					{ "name": "destinations", "list": { "computed_optional_required": "computed", "element_type": { "string": {} } } },
+					{ "name": "reprocess_all", "bool": { "computed_optional_required": "computed_optional" } },
+					{ "name": "created_at", "string": { "computed_optional_required": "computed" } },
+					{ "name": "updated_at", "string": { "computed_optional_required": "computed" } },
+					
+					{ "name": "schedule", "string": { "computed_optional_required": "computed_optional", "validators": [{ "custom": { "imports": [{ "path": "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator" }], "schema_definition": "stringvalidator.OneOf(\n\"every 15 minutes\",\n\"every hour\",\n\"every 2 hours\",\n\"every 4 hours\",\n\"every 6 hours\",\n\"every 8 hours\",\n\"every 10 hours\",\n\"every 12 hours\",\n\"daily\",\n\"weekly\",\n\"monthly\",\n)" } }] } },
+					{ "name": "workflow_nodes", "list_nested": { "computed_optional_required": "computed_optional", "nested_object": { "attributes": [
+						{ "name": "id", "string": { "computed_optional_required": "computed_optional" } },
+						{ "name": "name", "string": { "computed_optional_required": "required" } },
+						{ "name": "settings", "single_nested": { "computed_optional_required": "computed_optional" } },
+						{ "name": "subtype", "string": { "computed_optional_required": "required" } },
+						{ "name": "type", "string": { "computed_optional_required": "required" } }
+					]}}}
+				]
+			}
+		}
+	]
+}
