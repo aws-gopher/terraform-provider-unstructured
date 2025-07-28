@@ -576,12 +576,17 @@ func DestinationResourceSchema(ctx context.Context) schema.Schema {
 				Attributes: map[string]schema.Attribute{
 					"anonymous": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"endpoint_url": schema.StringAttribute{
 						Optional: true,
 					},
 					"key": schema.StringAttribute{
 						Optional: true,
+					},
+					"recursive": schema.BoolAttribute{
+						Optional: true,
+						Computed: true,
 					},
 					"remote_url": schema.StringAttribute{
 						Required: true,
@@ -12406,6 +12411,24 @@ func (t S3Type) ValueFromObject(ctx context.Context, in basetypes.ObjectValue) (
 			fmt.Sprintf(`key expected to be basetypes.StringValue, was: %T`, keyAttribute))
 	}
 
+	recursiveAttribute, ok := attributes["recursive"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`recursive is missing from object`)
+
+		return nil, diags
+	}
+
+	recursiveVal, ok := recursiveAttribute.(basetypes.BoolValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`recursive expected to be basetypes.BoolValue, was: %T`, recursiveAttribute))
+	}
+
 	remoteUrlAttribute, ok := attributes["remote_url"]
 
 	if !ok {
@@ -12468,6 +12491,7 @@ func (t S3Type) ValueFromObject(ctx context.Context, in basetypes.ObjectValue) (
 		Anonymous:   anonymousVal,
 		EndpointUrl: endpointUrlVal,
 		Key:         keyVal,
+		Recursive:   recursiveVal,
 		RemoteUrl:   remoteUrlVal,
 		Secret:      secretVal,
 		Token:       tokenVal,
@@ -12592,6 +12616,24 @@ func NewS3Value(attributeTypes map[string]attr.Type, attributes map[string]attr.
 			fmt.Sprintf(`key expected to be basetypes.StringValue, was: %T`, keyAttribute))
 	}
 
+	recursiveAttribute, ok := attributes["recursive"]
+
+	if !ok {
+		diags.AddError(
+			"Attribute Missing",
+			`recursive is missing from object`)
+
+		return NewS3ValueUnknown(), diags
+	}
+
+	recursiveVal, ok := recursiveAttribute.(basetypes.BoolValue)
+
+	if !ok {
+		diags.AddError(
+			"Attribute Wrong Type",
+			fmt.Sprintf(`recursive expected to be basetypes.BoolValue, was: %T`, recursiveAttribute))
+	}
+
 	remoteUrlAttribute, ok := attributes["remote_url"]
 
 	if !ok {
@@ -12654,6 +12696,7 @@ func NewS3Value(attributeTypes map[string]attr.Type, attributes map[string]attr.
 		Anonymous:   anonymousVal,
 		EndpointUrl: endpointUrlVal,
 		Key:         keyVal,
+		Recursive:   recursiveVal,
 		RemoteUrl:   remoteUrlVal,
 		Secret:      secretVal,
 		Token:       tokenVal,
@@ -12732,6 +12775,7 @@ type S3Value struct {
 	Anonymous   basetypes.BoolValue   `tfsdk:"anonymous"`
 	EndpointUrl basetypes.StringValue `tfsdk:"endpoint_url"`
 	Key         basetypes.StringValue `tfsdk:"key"`
+	Recursive   basetypes.BoolValue   `tfsdk:"recursive"`
 	RemoteUrl   basetypes.StringValue `tfsdk:"remote_url"`
 	Secret      basetypes.StringValue `tfsdk:"secret"`
 	Token       basetypes.StringValue `tfsdk:"token"`
@@ -12739,7 +12783,7 @@ type S3Value struct {
 }
 
 func (v S3Value) ToTerraformValue(ctx context.Context) (tftypes.Value, error) {
-	attrTypes := make(map[string]tftypes.Type, 6)
+	attrTypes := make(map[string]tftypes.Type, 7)
 
 	var val tftypes.Value
 	var err error
@@ -12747,6 +12791,7 @@ func (v S3Value) ToTerraformValue(ctx context.Context) (tftypes.Value, error) {
 	attrTypes["anonymous"] = basetypes.BoolType{}.TerraformType(ctx)
 	attrTypes["endpoint_url"] = basetypes.StringType{}.TerraformType(ctx)
 	attrTypes["key"] = basetypes.StringType{}.TerraformType(ctx)
+	attrTypes["recursive"] = basetypes.BoolType{}.TerraformType(ctx)
 	attrTypes["remote_url"] = basetypes.StringType{}.TerraformType(ctx)
 	attrTypes["secret"] = basetypes.StringType{}.TerraformType(ctx)
 	attrTypes["token"] = basetypes.StringType{}.TerraformType(ctx)
@@ -12755,7 +12800,7 @@ func (v S3Value) ToTerraformValue(ctx context.Context) (tftypes.Value, error) {
 
 	switch v.state {
 	case attr.ValueStateKnown:
-		vals := make(map[string]tftypes.Value, 6)
+		vals := make(map[string]tftypes.Value, 7)
 
 		val, err = v.Anonymous.ToTerraformValue(ctx)
 
@@ -12780,6 +12825,14 @@ func (v S3Value) ToTerraformValue(ctx context.Context) (tftypes.Value, error) {
 		}
 
 		vals["key"] = val
+
+		val, err = v.Recursive.ToTerraformValue(ctx)
+
+		if err != nil {
+			return tftypes.NewValue(objectType, tftypes.UnknownValue), err
+		}
+
+		vals["recursive"] = val
 
 		val, err = v.RemoteUrl.ToTerraformValue(ctx)
 
@@ -12838,6 +12891,7 @@ func (v S3Value) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag
 		"anonymous":    basetypes.BoolType{},
 		"endpoint_url": basetypes.StringType{},
 		"key":          basetypes.StringType{},
+		"recursive":    basetypes.BoolType{},
 		"remote_url":   basetypes.StringType{},
 		"secret":       basetypes.StringType{},
 		"token":        basetypes.StringType{},
@@ -12857,6 +12911,7 @@ func (v S3Value) ToObjectValue(ctx context.Context) (basetypes.ObjectValue, diag
 			"anonymous":    v.Anonymous,
 			"endpoint_url": v.EndpointUrl,
 			"key":          v.Key,
+			"recursive":    v.Recursive,
 			"remote_url":   v.RemoteUrl,
 			"secret":       v.Secret,
 			"token":        v.Token,
@@ -12892,6 +12947,10 @@ func (v S3Value) Equal(o attr.Value) bool {
 		return false
 	}
 
+	if !v.Recursive.Equal(other.Recursive) {
+		return false
+	}
+
 	if !v.RemoteUrl.Equal(other.RemoteUrl) {
 		return false
 	}
@@ -12920,6 +12979,7 @@ func (v S3Value) AttributeTypes(ctx context.Context) map[string]attr.Type {
 		"anonymous":    basetypes.BoolType{},
 		"endpoint_url": basetypes.StringType{},
 		"key":          basetypes.StringType{},
+		"recursive":    basetypes.BoolType{},
 		"remote_url":   basetypes.StringType{},
 		"secret":       basetypes.StringType{},
 		"token":        basetypes.StringType{},

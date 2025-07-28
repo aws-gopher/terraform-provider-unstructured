@@ -585,11 +585,12 @@
 					]}},
 					{ "name": "s3", "single_nested": { "computed_optional_required": "optional", "attributes": [
 						{ "name": "remote_url", "string": { "computed_optional_required": "required" } },
-						{ "name": "anonymous", "bool": { "computed_optional_required": "optional" } },
+						{ "name": "anonymous", "bool": { "computed_optional_required": "computed_optional" } },
 						{ "name": "key", "string": { "computed_optional_required": "optional" } },
 						{ "name": "secret", "string": { "computed_optional_required": "optional" } },
 						{ "name": "token", "string": { "computed_optional_required": "optional" } },
-						{ "name": "endpoint_url", "string": { "computed_optional_required": "optional" } }
+						{ "name": "endpoint_url", "string": { "computed_optional_required": "optional" } },
+						{ "name": "recursive", "bool": { "computed_optional_required": "computed_optional" } }
 					]}},
 					{ "name": "snowflake", "single_nested": { "computed_optional_required": "optional", "attributes": [
 						{ "name": "account", "string": { "computed_optional_required": "required" } },

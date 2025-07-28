@@ -1,7 +1,7 @@
 provider "unstructured" {
-  # this is not a real key, but shown to demonstrate the length and pattern that Unstructured uses
-  api_key = "TlMPUit8RRpouMypm2vQat1ViC1kvk"
+  # API key should be set via environment variable UNSTRUCTURED_API_KEY
+  # api_key = "your-api-key-here"
 
-  # this is the default base URL, but can be overridden if needed
-  base_url = "https://platform.unstructuredapp.io/api/v1"
+  # Endpoint can be overridden if needed, defaults to https://platform.unstructuredapp.io/api/v1
+  # endpoint = "https://platform.unstructuredapp.io/api/v1"
 }
