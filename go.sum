@@ -22,8 +22,8 @@ github.com/apparentlymart/go-textseg/v15 v15.0.0 h1:uYvfpb3DyLSCGWnctWKGj857c6ew
 github.com/apparentlymart/go-textseg/v15 v15.0.0/go.mod h1:K8XmNZdhEBkdlyDdvbmmsvpAG721bKi0joRfFdHIWJ4=
 github.com/armon/go-radix v1.0.0 h1:F4z6KzEeeQIMeLFa97iZU6vupzoecKdU5TX24SNppXI=
 github.com/armon/go-radix v1.0.0/go.mod h1:ufUuZ+zHj4x4TnLV4JWEpy2hxWSpsRywHrMgIH9cCH8=
-github.com/aws-gopher/unstructured-sdk-go v0.0.0-20250724184133-ccde280fa6f9 h1:UoGWbBKL/2fc1EWLI8ZbdojWWFvxXJthEAS80CXPYpM=
-github.com/aws-gopher/unstructured-sdk-go v0.0.0-20250724184133-ccde280fa6f9/go.mod h1:8Bqqw5vVDyfb9yO1ncn5fF32DU2J0QCZJPtFdrFQtdY=
+github.com/aws-gopher/unstructured-sdk-go v0.0.0-20250725191739-6b617f948c15 h1:WrQVdckBk6RnTraGV6pQEjIq2VDqmrZZo5NWx0LYgSQ=
+github.com/aws-gopher/unstructured-sdk-go v0.0.0-20250725191739-6b617f948c15/go.mod h1:8Bqqw5vVDyfb9yO1ncn5fF32DU2J0QCZJPtFdrFQtdY=
 github.com/bgentry/speakeasy v0.1.0 h1:ByYyxL9InA1OWqxJqqp2A5pYHUrCiAL6K3J+LKSsQkY=
 github.com/bgentry/speakeasy v0.1.0/go.mod h1:+zsyZBPWlz7T6j88CTgSN5bM796AkVf0kBD4zp0CCIs=
 github.com/bmatcuk/doublestar/v4 v4.8.1 h1:54Bopc5c2cAvhLRAzqOGCYHYyhcDHsFF4wWIR5wKP38=

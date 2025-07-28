@@ -266,6 +266,7 @@ func (r *workflowResource) Update(ctx context.Context, req resource.UpdateReques
 
 	// Create API call logic
 	updateRequest := unstructured.UpdateWorkflowRequest{
+		ID:            state.Id.ValueString(),
 		Name:          name,
 		SourceID:      sourceID,
 		DestinationID: destinationID,
@@ -275,7 +276,7 @@ func (r *workflowResource) Update(ctx context.Context, req resource.UpdateReques
 		ReprocessAll:  reprocessAll,
 	}
 
-	workflow, err := r.client.UpdateWorkflow(ctx, state.Id.ValueString(), updateRequest)
+	workflow, err := r.client.UpdateWorkflow(ctx, updateRequest)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating workflow", err.Error())
 		return

@@ -75,7 +75,7 @@ func testAccSourceResourceConfig(name string) string {
 resource "unstructured_source" "test" {
   name = %[1]q
   
-  s3 {
+  s3 = {
     remote_url = "s3://example-bucket/"
     anonymous  = true
   }

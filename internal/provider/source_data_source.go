@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/aws-gopher/terraform-provider-unstructured/internal/datasource_source"
-	"github.com/aws-gopher/terraform-provider-unstructured/internal/resource_source"
 	"github.com/aws-gopher/unstructured-sdk-go"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 )
@@ -64,7 +63,7 @@ func (d *sourceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	}
 
 	// Set state
-	resp.Diagnostics.Append(resp.State.Set(ctx, resource_source.SourceToModel(ctx, source, resp.Diagnostics))...)
+	resp.Diagnostics.Append(resp.State.Set(ctx, datasource_source.SourceToModel(ctx, source, resp.Diagnostics))...)
 	if resp.Diagnostics.HasError() {
 		return
 	}

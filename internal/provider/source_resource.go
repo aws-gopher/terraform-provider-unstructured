@@ -82,22 +82,28 @@ func (r *sourceResource) getSourceConfig(data *resource_source.SourceModel) (uns
 		}
 
 		if !data.S3.Anonymous.IsNull() && !data.S3.Anonymous.IsUnknown() {
-			config.Anonymous = &[]bool{data.S3.Anonymous.ValueBool()}[0]
+			anonymous := data.S3.Anonymous.ValueBool()
+			config.Anonymous = &anonymous
 		}
 		if !data.S3.Key.IsNull() && !data.S3.Key.IsUnknown() {
-			config.Key = &[]string{data.S3.Key.ValueString()}[0]
+			key := data.S3.Key.ValueString()
+			config.Key = &key
 		}
 		if !data.S3.Secret.IsNull() && !data.S3.Secret.IsUnknown() {
-			config.Secret = &[]string{data.S3.Secret.ValueString()}[0]
+			secret := data.S3.Secret.ValueString()
+			config.Secret = &secret
 		}
 		if !data.S3.Token.IsNull() && !data.S3.Token.IsUnknown() {
-			config.Token = &[]string{data.S3.Token.ValueString()}[0]
+			token := data.S3.Token.ValueString()
+			config.Token = &token
 		}
 		if !data.S3.EndpointUrl.IsNull() && !data.S3.EndpointUrl.IsUnknown() {
-			config.EndpointURL = &[]string{data.S3.EndpointUrl.ValueString()}[0]
+			endpointUrl := data.S3.EndpointUrl.ValueString()
+			config.EndpointURL = &endpointUrl
 		}
 		if !data.S3.Recursive.IsNull() && !data.S3.Recursive.IsUnknown() {
-			config.Recursive = &[]bool{data.S3.Recursive.ValueBool()}[0]
+			recursive := data.S3.Recursive.ValueBool()
+			config.Recursive = &recursive
 		}
 
 		return config, nil
@@ -112,7 +118,10 @@ func (r *sourceResource) getSourceConfig(data *resource_source.SourceModel) (uns
 			Password:  data.Postgres.Password.ValueString(),
 			TableName: data.Postgres.TableName.ValueString(),
 			BatchSize: int(data.Postgres.BatchSize.ValueInt64()),
-			IDColumn:  &[]string{data.Postgres.IdColumn.ValueString()}[0],
+		}
+		if !data.Postgres.IdColumn.IsNull() && !data.Postgres.IdColumn.IsUnknown() {
+			idColumn := data.Postgres.IdColumn.ValueString()
+			config.IDColumn = &idColumn
 		}
 
 		// Convert fields list
@@ -127,16 +136,22 @@ func (r *sourceResource) getSourceConfig(data *resource_source.SourceModel) (uns
 
 	if !data.Azure.IsNull() {
 		config := &unstructured.AzureSourceConnectorConfigInput{
-			RemoteURL:        data.Azure.RemoteUrl.ValueString(),
-			ConnectionString: &[]string{data.Azure.ConnectionString.ValueString()}[0],
+			RemoteURL: data.Azure.RemoteUrl.ValueString(),
+		}
+		if !data.Azure.ConnectionString.IsNull() && !data.Azure.ConnectionString.IsUnknown() {
+			connectionString := data.Azure.ConnectionString.ValueString()
+			config.ConnectionString = &connectionString
 		}
 		return config, nil
 	}
 
 	if !data.GoogleDrive.IsNull() {
 		config := &unstructured.GoogleDriveSourceConnectorConfigInput{
-			DriveID:           data.GoogleDrive.DriveId.ValueString(),
-			ServiceAccountKey: &[]string{data.GoogleDrive.ServiceAccountKey.ValueString()}[0],
+			DriveID: data.GoogleDrive.DriveId.ValueString(),
+		}
+		if !data.GoogleDrive.ServiceAccountKey.IsNull() && !data.GoogleDrive.ServiceAccountKey.IsUnknown() {
+			serviceAccountKey := data.GoogleDrive.ServiceAccountKey.ValueString()
+			config.ServiceAccountKey = &serviceAccountKey
 		}
 
 		if !data.GoogleDrive.Extensions.IsNull() && !data.GoogleDrive.Extensions.IsUnknown() {
@@ -145,7 +160,8 @@ func (r *sourceResource) getSourceConfig(data *resource_source.SourceModel) (uns
 			config.Extensions = extensions
 		}
 		if !data.GoogleDrive.Recursive.IsNull() && !data.GoogleDrive.Recursive.IsUnknown() {
-			config.Recursive = &[]bool{data.GoogleDrive.Recursive.ValueBool()}[0]
+			recursive := data.GoogleDrive.Recursive.ValueBool()
+			config.Recursive = &recursive
 		}
 
 		return config, nil
@@ -195,9 +211,8 @@ func (r *sourceResource) Create(ctx context.Context, req resource.CreateRequest,
 
 	// Create the source
 	source, err := r.client.CreateSource(ctx, unstructured.CreateSourceRequest{
-		Name:        data.Name.ValueString(),
-		Description: "Created by Terraform",
-		Config:      config,
+		Name:   data.Name.ValueString(),
+		Config: config,
 	})
 	if err != nil {
 		resp.Diagnostics.AddError("Error creating source", err.Error())
@@ -262,7 +277,7 @@ func (r *sourceResource) Update(ctx context.Context, req resource.UpdateRequest,
 	}
 
 	// Update the source
-	source, err := r.client.UpdateSource(ctx, state.Id.ValueString(), unstructured.UpdateSourceRequest{
+	source, err := r.client.UpdateSource(ctx, unstructured.UpdateSourceRequest{
 		Config: config,
 	})
 	if err != nil {

@@ -284,7 +284,6 @@ Required:
 - `batch_size` (Number)
 - `database` (String)
 - `host` (String)
-- `id_column` (String)
 - `password` (String)
 - `port` (Number)
 - `table_name` (String)
@@ -293,6 +292,7 @@ Required:
 Optional:
 
 - `fields` (List of String)
+- `id_column` (String)
 
 
 <a id="nestedatt--s3"></a>

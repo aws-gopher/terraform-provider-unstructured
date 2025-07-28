@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/aws-gopher/unstructured-sdk-go"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -278,23 +279,33 @@ func SourceToModel(ctx context.Context, source *unstructured.Source, diagnostics
 
 	case unstructured.ConnectorTypeS3:
 		if config, ok := source.Config.(*unstructured.S3SourceConnectorConfig); ok {
-			model.S3 = S3Value{
-				RemoteUrl: types.StringValue(config.RemoteURL),
-				Anonymous: types.BoolValue(config.Anonymous),
-				Recursive: types.BoolValue(config.Recursive),
+			// Create attributes map for S3Value
+			attributes := map[string]attr.Value{
+				"remote_url":   types.StringValue(config.RemoteURL),
+				"anonymous":    types.BoolValue(config.Anonymous),
+				"recursive":    types.BoolValue(config.Recursive),
+				"endpoint_url": types.StringNull(),
+				"key":          types.StringNull(),
+				"secret":       types.StringNull(),
+				"token":        types.StringNull(),
 			}
+
+			// Set optional fields if they exist
 			if config.Key != nil {
-				model.S3.Key = types.StringValue(*config.Key)
+				attributes["key"] = types.StringValue(*config.Key)
 			}
 			if config.Secret != nil {
-				model.S3.Secret = types.StringValue(*config.Secret)
+				attributes["secret"] = types.StringValue(*config.Secret)
 			}
 			if config.Token != nil {
-				model.S3.Token = types.StringValue(*config.Token)
+				attributes["token"] = types.StringValue(*config.Token)
 			}
 			if config.EndpointURL != nil {
-				model.S3.EndpointUrl = types.StringValue(*config.EndpointURL)
+				attributes["endpoint_url"] = types.StringValue(*config.EndpointURL)
 			}
+
+			// Use factory function to create S3Value
+			model.S3 = NewS3ValueMust(S3Value{}.AttributeTypes(ctx), attributes)
 		}
 
 	case unstructured.ConnectorTypeSalesforce:

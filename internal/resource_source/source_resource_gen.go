@@ -31,6 +31,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"remote_url": schema.StringAttribute{
 						Required: true,
@@ -53,6 +54,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"remote_url": schema.StringAttribute{
 						Required: true,
@@ -181,6 +183,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 				Attributes: map[string]schema.Attribute{
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"remote_url": schema.StringAttribute{
 						Required: true,
@@ -220,6 +223,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 				Attributes: map[string]schema.Attribute{
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"remote_url": schema.StringAttribute{
 						Required: true,
@@ -246,6 +250,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"service_account_key": schema.StringAttribute{
 						Required: true,
@@ -374,6 +379,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"tenant": schema.StringAttribute{
 						Required: true,
@@ -406,6 +412,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"tenant": schema.StringAttribute{
 						Optional: true,
@@ -437,7 +444,8 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 						Required: true,
 					},
 					"id_column": schema.StringAttribute{
-						Required: true,
+						Optional: true,
+						Computed: true,
 					},
 					"password": schema.StringAttribute{
 						Required: true,
@@ -463,6 +471,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 				Attributes: map[string]schema.Attribute{
 					"anonymous": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"endpoint_url": schema.StringAttribute{
 						Optional: true,
@@ -472,6 +481,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"remote_url": schema.StringAttribute{
 						Required: true,
@@ -529,6 +539,7 @@ func SourceResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"recursive": schema.BoolAttribute{
 						Optional: true,
+						Computed: true,
 					},
 					"site": schema.StringAttribute{
 						Required: true,
