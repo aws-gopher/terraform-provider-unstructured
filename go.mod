@@ -1,9 +1,9 @@
 module github.com/aws-gopher/terraform-provider-unstructured
 
-go 1.24.5
+go 1.25.0
 
 require (
-	github.com/aws-gopher/unstructured-sdk-go v0.0.0-20250725191739-6b617f948c15
+	github.com/aws-gopher/unstructured-sdk-go v0.1.0-alpha.1
 	github.com/hashicorp/go-uuid v1.0.3
 	github.com/hashicorp/terraform-plugin-framework v1.15.1
 	github.com/hashicorp/terraform-plugin-framework-validators v0.18.0
